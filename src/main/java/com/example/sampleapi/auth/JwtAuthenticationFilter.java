@@ -1,6 +1,5 @@
-package com.example.sampleapi.auth.Jwt;
+package com.example.sampleapi.auth;
 
-import com.example.sampleapi.auth.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
