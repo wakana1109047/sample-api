@@ -2,7 +2,6 @@ package com.example.sampleapi.security;
 
 import com.example.sampleapi.dto.User;
 import com.example.sampleapi.repository.UserRepository;
-import com.example.sampleapi.security.CustomUserDetails;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,7 +17,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.selectUserByUserName(username);
+        User user = userRepository.selectUserByUsername(username);
 
         if (user == null) {
             throw new UsernameNotFoundException(username);

@@ -21,53 +21,56 @@ public class NoteService {
         return noteRepository.findAll();
     }
 
-    public Note saveNote(Note note){
-        //titleが空の場合のバリデーション
-        if(note.getTitle() == null || note.getTitle().isEmpty()){
-            throw new NoteArgumentNotValidException("Title is empty");
+    public Note saveNote(Note note) {
+        // title が空の場合のバリデーション
+        if (note.getTitle() == null || note.getTitle().isEmpty()) {
+            throw new NoteArgumentNotValidException("title is empty");
         }
 
-        //contentが空の場合のバリデーション
-        if(note.getContent() == null || note.getContent().isEmpty()){
-            throw new NoteArgumentNotValidException("Content is empty");
+        // content が空の場合のバリデーション
+        if (note.getContent() == null || note.getContent().isEmpty()) {
+            throw new NoteArgumentNotValidException("content is empty");
         }
 
         noteRepository.insertNote(note);
         return note;
     }
-    public Note findById(Long id){
+
+    public Note findById(long id) {
         Note note = noteRepository.findById(id);
 
-        if(note == null){
+        if (note == null) {
             throw new NoteNotFoundException(id);
         }
+
         return note;
     }
 
-    public boolean delete(long id){
-        if(!noteRepository.delete(id)){
+    public boolean delete(long id) {
+        if (!noteRepository.delete(id)) {
             throw new NoteNotFoundException(id);
         }
         return true;
     }
 
     @Transactional
-    public Note update(Note note, long id){
-        //titleが空の場合のバリデーション
-        if(note.getTitle() == null || note.getTitle().isEmpty()){
-            throw new NoteArgumentNotValidException("Title is empty");
+    public Note update(Note note, long id) {
+        // title が空の場合のバリデーション
+        if (note.getTitle() == null || note.getTitle().isEmpty()) {
+            throw new NoteArgumentNotValidException("title is empty");
         }
 
-        //contentが空の場合のバリデーション
-        if(note.getContent() == null || note.getContent().isEmpty()){
-            throw new NoteArgumentNotValidException("Content is empty");
+        // content が空の場合のバリデーション
+        if (note.getContent() == null || note.getContent().isEmpty()) {
+            throw new NoteArgumentNotValidException("content is empty");
         }
 
-        //指定されたIDが存在しない場合のバリデーション
+        // 指定されたIDが存在しない場合のバリデーション
         Note targetNote = noteRepository.findById(id);
-        if (targetNote == null){
+        if (targetNote == null) {
             throw new NoteNotFoundException(id);
         }
+
         note.setId(id);
         note.setCreatedAt(targetNote.getCreatedAt());
         return noteRepository.update(note);

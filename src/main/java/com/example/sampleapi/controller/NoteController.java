@@ -2,6 +2,7 @@ package com.example.sampleapi.controller;
 
 import com.example.sampleapi.dto.Note;
 import com.example.sampleapi.service.NoteService;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,41 +26,45 @@ public class NoteController {
         List<Note> notes = noteService.findAll();
 
 //        return new ResponseEntity<>(notes, HttpStatus.OK);
-        return ResponseEntity.ok().body(notes);
+        return ResponseEntity.ok(notes);
     }
 
     @PostMapping
     public ResponseEntity<Note> saveNote(@RequestBody Note note,
-                                         UriComponentsBuilder uriComponentsBuilder){
+                                         UriComponentsBuilder uriBuilder) {
         Note createdNote = noteService.saveNote(note);
 
-        URI location = uriComponentsBuilder.path("/api/notes/{id}").buildAndExpand(createdNote.getId()).toUri();
+        URI location = uriBuilder.path("/api/notes/{id}")
+                .buildAndExpand(createdNote.getId()).toUri();
 
 //        HttpHeaders headers = new HttpHeaders();
 //        headers.setLocation(location);
 //
 //        return new ResponseEntity<>(createdNote, headers, HttpStatus.CREATED);
+
         return ResponseEntity.created(location).body(createdNote);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Note> findById(@PathVariable Long id){
+    public ResponseEntity<Note> findById(@PathVariable long id) {
         Note note = noteService.findById(id);
-        return ResponseEntity.ok(note);
 
+        return ResponseEntity.ok(note);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable long id){
+    public ResponseEntity<Void> delete(@PathVariable long id) {
         noteService.delete(id);
+
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Note> update(@PathVariable long id,
-                                       @RequestBody Note note){
+                                       @RequestBody Note note) {
         noteService.update(note, id);
 
         return ResponseEntity.ok(note);
     }
+
 }

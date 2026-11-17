@@ -13,11 +13,11 @@ public class UserRepository {
         this.userMapper = userMapper;
     }
 
-    public User selectUserByUserName(String username) {
-        return userMapper.selectUserByUserName(username);
+    public User selectUserByUsername(String username) {
+        return userMapper.selectUserByUsername(username);
     }
 
-    public void insertUser(String username,String password){
-        userMapper.insertUser(username,password);
+    public void insertUser(String username, String password) {
+        userMapper.insertUser(username, password);
     }
 }
