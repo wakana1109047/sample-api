@@ -57,7 +57,7 @@ public class AuthenticationService {
         if(registerRequest.getPassword() == null || registerRequest.getPassword().isEmpty()){
             throw new UserRegistrationException("password is Empty");
         }
-        if (userRepository.selectUserByUserName(registerRequest.getUsername()) != null) {
+        if (userRepository.selectUserByUsername(registerRequest.getUsername()) != null) {
             throw new UserRegistrationException("username already exists");
         }
 
