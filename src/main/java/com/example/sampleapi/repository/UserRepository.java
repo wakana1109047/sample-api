@@ -16,4 +16,8 @@ public class UserRepository {
     public User selectUserByUserName(String username) {
         return userMapper.selectUserByUserName(username);
     }
+
+    public void insertUser(String username,String password){
+        userMapper.insertUser(username,password);
+    }
 }

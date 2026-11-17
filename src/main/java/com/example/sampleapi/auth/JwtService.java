@@ -19,6 +19,9 @@ public class JwtService {
 
     //秘密鍵を生成している
     private SecretKey getSigningKey(){
+
+        System.out.println("JWT_SECRET=[" + secret + "]");
+
         byte[] decodedKey = Base64.getDecoder().decode(secret);
         return Keys.hmacShaKeyFor(decodedKey);
     }
